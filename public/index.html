@@ -16,17 +16,35 @@
         gtag('js', new Date());
         gtag('config', 'G-TJQ2XJZPTD');
     </script>
+     <script src="/htmx.min.js"></script>
 </head>
 
 <body>
     <div class="sticky-note">
-        <div class="content" contenteditable="true"></div>
-        <button>Compartilhar</button>
+        <div 
+            id="content" 
+            class="content" 
+            contenteditable="true" 
+            oninput="document.getElementById('shareButton').disabled = !this.textContent.trim()">
+        </div>
+        
+        <button 
+            id="shareButton"
+            disabled="true"
+            hx-post="/notes"
+            hx-trigger="click"
+            hx-target="#share-link"
+            hx-swap="innerHTML"
+            hx-on:htmx:config-request="event.detail.parameters.content = content.innerHTML"
+            hx-on:htmx:after-request="{
+                document.getElementById('shareButton').disabled = true;
+                document.getElementById('content').innerHTML = '';
+            }"
+        >Compartilhar
+        </button>
     </div>
 
-    <div id="share-link">
-        
-    </div>
+    <div id="share-link"></div>
 </body>
 
 </html>
