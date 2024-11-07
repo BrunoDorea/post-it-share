@@ -1,5 +1,5 @@
 const express = require('express')
-const { saveNote, deleteExpireNotes, getNote, markNoteAsOpened } = require('./db')
+const { saveNote, deleteExpireNotes, getNote, markNoteAsOpened } = require('./db.js')
 const app = express()
 
 app.use(express.static('public'))
@@ -26,8 +26,9 @@ app.post('/notes', async (req, res) => {
     res.send(`
         <p>
             Compartilhe sua nota através do link<br/>
-            <span>${req.headers.origin}/note/${id}</span>
+            <span id="shared-link" onclick="copyToClipboard()">${req.headers.origin}/note/${id}</span>
         </p>
+        <p id="message">Link copiado</p>
         `)
 })
 

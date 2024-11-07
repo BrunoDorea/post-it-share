@@ -92,3 +92,8 @@ button:disabled {
 #content .error {
     color: hsl(0 100% 50%);
 }
+
+#message {
+    color: hsl(120, 100%, 25%);
+    display: none;
+}
